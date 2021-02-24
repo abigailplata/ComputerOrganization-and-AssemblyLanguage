@@ -1,0 +1,7 @@
+1. instead of printf(s) it needs to be printf(“%s”, s)
+2.
+3. a. run
+   b. Java is newer
+4. Using a shared pointer where an unique pointer suffices. Some differences are that dynamically allocated buffers usually do not have any conditions of array bounds overflow and take away the responsibility of ensuring array boundaries are always carefully observed.
+
+Although, static allocation and dynamic allocation of arrays are easily overflowed without proper observance. 

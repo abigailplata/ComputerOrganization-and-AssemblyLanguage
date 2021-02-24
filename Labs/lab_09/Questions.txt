@@ -1,0 +1,34 @@
+Q1. The difference between -1 and 1 is that in 2’s compliment -1 will be shown with a 1 in the front, ex) 1000. A 1 will just be 0001. 
+Q2. In general 2’s compliment of a number is used to handle the negative numbers in term of positive numbers characters. In yscall the positive number consists as a single character and the negative consists as two characters. The number “-1” can print out as two individual characters
+	li $a1, ‘-‘
+	li $v1, 11
+	syscall
+	li $a1, ‘1’
+	li $v1, 11
+	syscall
+Q3. main() {
+	putDec(0);
+	putDec(1);
+	putDec(196);
+	putDec(-1);
+	putDec(-452);
+	putDec(2);
+	putDec(3);
+    }
+
+    putDec(int v) {
+
+    }
+
+    mystery() {
+	if (0 != v) {
+		recur(v);
+	}
+	return v;
+    }
+
+    recur() {
+
+    }
+Q4.
+Q5.

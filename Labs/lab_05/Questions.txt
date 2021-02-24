@@ -1,0 +1,12 @@
+Abigail Plata
+Lab 5
+CSE31
+
+1.In section data you put the values you will use ”global values”, .word is the size of the data .text is your code
+2. check the line on the execute/textsement tab
+	the adress of the instruction
+3. f5 to run, f7 to step
+4. registers are on the right
+   break at line 11, when the n is loaded, then change it
+5. 0x1001000 +10 = 0x10010010
+6. its paling extra external functions, first its calling a syscall that will print an integer then it exits we need to set the arguments first and put the syscall number in

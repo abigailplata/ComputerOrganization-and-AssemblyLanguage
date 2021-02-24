@@ -1,0 +1,11 @@
+Question 1. 
+void swap (int *px, int *py) {
+int temp;
+temp = *px;
+*px = *py;
+*py = temp;
+}
+
+Question 2.
+the uninitialized int *temp; uses some garbage from the stack. it's dereference will crash the program with SIGSEGV (AccessViolation on Windows), otherwise (and it's much worse!) it spoils some existing memory location's data which may crucial for the program, but it will show up much later as a mysterious geizenbug.
+So the behavior of an uninitialized pointer completely depends on the state of the stack, which is virtually random: depending on what functions have been called before and what amount of data they used and their local variables.

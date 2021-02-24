@@ -1,0 +1,8 @@
+1. there are 3 bug
+2. add 4 because 4 bytes
+3. continually running the program until the amount counts equals the amount of words inthe array and that the numbers copy correctly to the second array
+4. line 28
+5. line 33
+6. addu
+7. line 40 lw $4,0 ($2)
+8. comments in arrcopy.s

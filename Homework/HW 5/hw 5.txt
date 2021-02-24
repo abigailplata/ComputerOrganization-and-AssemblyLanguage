@@ -1,0 +1,86 @@
+Abigail Plata
+HW 5
+CSE 31
+
+Problem 1:
+	2.14)	R-type, add $s0, $s0, $s0
+	2.15)	I-type, 0xAD490020
+	2.16)	R-type, sub $v1, $v1, $v0
+	2.17)	I-type, lw $v0, 4($at)
+	2.34)	addi	$sp, $sp, -4		# allocate stack frame of 4 bytes
+		sw	$ra, 0($sp)		# save return address
+		jal	func			# call func(a,b)
+		add	$a0, $v0, $0		# $a0 = result of func(a,b)
+		add	$a1, $a2, $a3		# $a1 = c+d
+		jal	func			# call func(func(a,b), c+d)
+		lw	$ra, 0($sp)		# restore return address
+		addi	$sp, $sp, 4		# free stack frame
+		jr	$ra			# return to caller
+	2.36)	Register ＄ra is equal to the return address in the caller function, registers ＄sp and ＄s3 have the same values they had when function f was called, and register ＄t5 can have an arbitrary value. For ＄t5, note that although function f does not modify it, function func is allowed to modify it so we cannot assume anything about $t5 after function func has been called.
+	2.37)	str2int:					# convert string to integer
+		li	$t5, 0x2B			# $t5 = '+'
+		li	$t6, 0x30			# $t6 = '0'
+		li	$t7, 0x39			# $t7 = '9'
+		li	$v0, 0				# initialize $v0 = 0
+		add	$t0, $0, $a0			# $t0 = pointer to string
+		lbu	$t1, 0($t0)			# load $t1 = sign character
+		add	$t3, $t1, $0			# $t3 = sign character
+		addiu	$t0, $t0, 1			# point to next char
+		lbu	$t1, 0($t0)			# load $t1 = digit character
+	LOOP:
+		slt	$t2, $t1, $t6			# char < '0'
+		bne	$t2, $0, NoDigit
+		slt	$t2, $t1, $t7			# char > '9'
+		beq	$t2, $0, NoDigit
+		subu	$t1, $t1, $t6			# convert char to integer
+		mul	$v0, $v0, 10			# multiply by 10
+		add	$v0, $v0, $t1			# $v0 = $v0 * 10 + digit
+		addiu	$t0, $t0, 1			# point to next char
+		lbu	$t1, 0($t0)			# load $t1 = next digit
+		bne	$t1, $0, LOOP			# branch if not end of string
+		bne	$t3, $t5, negative		# if $t3 != '+', go to negative
+		jr	$ra				# return integer value
+	negative:
+		sub	$v0, $0, $v0			# -$v0
+		jr	$ra				# return integer value
+	NoDigit:
+		li	$v0, -1				# return -1 in $v0
+		jr	$ra
+	2.38) 	＄t2value = 0x0000 0011 (=17ten)
+	2.39)	lui	$t0, 0x2001		# $t0 = 0010 0000 0000 0001 0000 0000 0000 0000two
+		ori	$t0, 0x4924		# $t0 = 0010 0000 0000 0001 0100 1001 0010 0100two 
+		add	$t1, $t0, $0		# save $t0 in $t1 ( $t0 = 0x20014924)
+	2.40) We can't use a single jump instruction, since the jump address range is 0xF8000004 ~ 0x08000003.
+
+		PC + 4 + 0x07FF FFFF = 0x0800 0003
+		PC + 4 - 0x0800 0000  = 0xF800 0004
+	2.41) we can't use a single branch instruction, since the branch address range is 0xFFFFE604 ~ 0x00020600, 
+
+		PC + 4 + 0x1FFFC = 0x0002 0600
+		PC + 4 - 0x20000	  = 0xFFFE 0604
+	2.42) we can use a single branch instruction, since the branch address range is 0x1FFDF004 ~ 0x2001F000, 
+
+		PC + 4 + 0x1FFFC = 0x2001 F000
+		PC + 4 - 0x20000	  = 0x1FFD F004
+
+Problem 2:
+	a. The idea that instructions and data of many types can be stored in memory as numbers, leading to the stored program computer.
+	b. self modifying code is a code that can rewrite itself. 
+	c.
+
+Problem 3:
+	a. R type instructions are used when all the data values used by the instruction are located in registers. I type instructions is used when it must operator on an immediate value and a register value. J type instructions are used when a jump needs to be preforemed.
+	b.
+	c.borrow bits from another field and add them to opcode/funct
+
+Problem 4:
+	a. Absolute dressing is a fixed address in memory. Relative addressing mode can be used to load to a register with a value stored in program memory a short distance away from the current instruction.
+	b. Word-alligned means the dress is stored at an address that divisible by 4, written in binary and you can see that the last two bits are 0.
+	   Byte-alligned means the address is stored at an address divisible by 1.
+	c. Branch B, BEQ, BNE, etc. instructions have a 16 bit signed word offset field, allowing a branch to an address +/- 128kBytes from the current location.
+	d. It can branch to an address within the current 256MByte region specified. 
+	e. jr can be branched to an arbitrary address anywhere in the 4GB address space.
+	f. adds $t0, $pc, 0x10100000 jr %t0
+
+Problem 5:
+

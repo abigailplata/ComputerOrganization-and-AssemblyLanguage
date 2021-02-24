@@ -1,0 +1,79 @@
+Abigail Plata
+CSE 31
+Homework 4
+
+Problem 1:
+
+2.19)
+	1. $t0 = 0xAAAAAAAA, $t1 = 0x12345678, $t2 = 0xBABEFEF8
+	2. $t2 = AAAAAAA0
+	3. $t2 = 0x5545
+2.20)	
+	srl	$t2, $t0, 11
+	sll	$t2, $t2, 26
+	srl	$t1, $t1,  6
+	add	$t2, $t2, $t1
+2.22)
+	lw	$t1, 0($s1)
+	sll	$t1, $t1, 4
+2.23)
+	value of $t2 = 3
+2.26)
+	1. $s2 = 20
+	2. while <i>0)
+		i=i-1;
+		B=B+2;
+	3. the loop is executed N*5+2 times
+2.27)
+			add	$t0, $0, $0		# i = 0
+	L1:	slt	$t2, $t0, $s0		# i < a
+		beq	$t2, $0, Exit		# $t2 == 0, go to Exit
+		add	$t1, $0, $0		# j = 0
+	L2:	slt	$t2, $t1, $s1		# j < b
+		beq	$t2, $0, L3		# if $t2 == 0, go to L3
+		add	$t2, $t0, $t1		# i+j
+		sll	$t4, $t1, 4		# $t4 = 4*j	(sll was written instead of mul.)
+		add	$t3, $t4, $s2		# $t3 = &D[4*j]
+		sw	$t2, 0($t3)		# D[4*j] = i+j
+		addi	$t1, $t1, 1		# j = j+1
+		j	L2
+	L3:	addi	$t0, $t0, 1		# i = i+1
+		j	L1
+	Exit:
+
+2.28)
+	formula = 3+a*(4+(3+b*8))
+	total number of MIPS instructions = 3+10*(4+(3+1*8)) = 153
+2.29)
+	i=0;
+	do {
+		result += MemArray[i];
+		i++;
+	} while(i<100);
+2.30)
+		addi	$t1, $s0, 400
+LOOP:	lw	$s1, 0($s0)
+	add	$s2, $s2, $s1
+	addi	$s0, $s0, 4
+	slti	$t2, $s0, $t1
+	bne	$t2, $0, LOOP
+
+
+Problem 2:
+func()
+{
+t1 = 31; // initializing t1 to 31
+t0 = 31; // initializing t0 to 31
+while(1){
+t3=a0 >> t1; // right shifting a0 by t1 and storing in t3
+t3 =t3 & 1; // restoring LSB of t3
+t3 = t3 + 48; // adding 48 to t3
+t4 = t0 - t1;
+t2 = a1 + t4 ;
+*t2 = t3; // storing t3 to address of (t2+0)
+if(t1==0) break;
+t1=t1-1;
+}
+*(t2+1)=0; // storing 0 at t2[1]
+return ;
+}

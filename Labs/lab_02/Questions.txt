@@ -1,0 +1,17 @@
+Lab 2
+
+1. run
+2. run [arguments]
+3. break
+4. break … if expression 
+5. n
+6. step or s
+7. continue or c
+8. p
+9. display
+10. info locals
+11. quit
+12. the null at the end of the array is not taken into consideration, so in the for loop it needs to stop at the null instead of including the null. it is a pitfall bug.
+13. line 15
+14. scanf was missing the & before input
+15. The bug is a dangling reference. Solved by passing in a pointer to our subroutine
